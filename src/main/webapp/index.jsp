@@ -1,5 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="web/style/main.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <title>First JSP</title>
@@ -15,64 +19,64 @@
 <table>
     <tr>
         <td width="60%">
-            <form method="post" enctype="multipart/form-data" class="form" id="form">
+            <form method="post" enctype="multipart/form-data">
                 <div>
                     <p></p>
-                    <input type="text" name="r_value" value="" autocomplete="off" placeholder="Enter R value"
+                    <input type="text" value="" autocomplete="off" placeholder="Enter R value"
                            class="text_input r_value"
                            required>
                     <br>
                     <p>Y value</p>
-                    <input type="text" name="y_value" value="" autocomplete="off" placeholder="Enter Y coordinate"
+                    <input type="text" value="" autocomplete="off" placeholder="Enter Y coordinate"
                            required>
                     <br>
                     <p>X value</p>
                     <table border="1">
                         <tr>
                             <td>
-                                <input type="radio" name="x_group" checked="checked"
+                                <input type="radio"  checked="checked"
                                        value="-4"> -4 </input>
                             </td>
                             <td>
-                                <input type="radio" name="x_group" value="-3"> -3 </input>
+                                <input type="radio" value="-3"> -3 </input>
                             </td>
                             <td>
-                                <input type="radio" name="x_group" value="-2">-2</input>
-                            </td>
-                        </tr>
-                        <br>
-                        <tr>
-                            <td>
-                                <input type="radio" name="x_group" value="-1">-1</input>
-                            </td>
-                            <td>
-                                <input type="radio" name="x_group" value="0">0</input>
-                            </td>
-                            <td>
-                                <input type="radio" name="x_group" value="1">1</input>
+                                <input type="radio"  value="-2">-2</input>
                             </td>
                         </tr>
                         <br>
                         <tr>
                             <td>
-                                <input type="radio" name="x_group" value="2">2</input>
+                                <input type="radio" value="-1">-1</input>
                             </td>
                             <td>
-                                <input type="radio" name="x_group" value="3">3</input>
+                                <input type="radio"  value="0">0</input>
                             </td>
                             <td>
-                                <input type="radio" name="x_group" value="4">4</input>
+                                <input type="radio"  value="1">1</input>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td>
+                                <input type="radio"  value="2">2</input>
+                            </td>
+                            <td>
+                                <input type="radio"  value="3">3</input>
+                            </td>
+                            <td>
+                                <input type="radio"  value="4">4</input>
                             </td>
                         </tr>
                     </table>
-                    <button type="submit" name="manage_buttons">Submit
+                    <button type="submit" >Submit
                     </button>
-                    <button type="button" name="manage_buttons">Reset</button>
+                    <button type="button" >Reset</button>
                 </div>
             </form>
         </td>
         <td align="center">
-            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" class="coordinate_plane">
+            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg">
                 <line stroke="white" x1="0" x2="300" y1="150" y2="150"></line>
                 <line stroke="white" x1="150" x2="150" y1="0" y2="300"></line>
                 <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
@@ -156,6 +160,6 @@
     <br>
     г. Санкт-Петербург
 </footer>
-<script src="js/validator.js"></script>
+<script src="web/js/main.js"></script>
 </body>
 </html>
