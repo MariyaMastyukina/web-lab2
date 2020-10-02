@@ -6,8 +6,12 @@ import java.io.PrintWriter;
 
 public class AreaCheckServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
+        double x=Double.parseDouble("X");
+        int y=Integer.parseInt("Y");
+        double r=Double.parseDouble("R");
+        if ((x<=r/2&&y<=r&&x>0&&y>0)||(x<0&&y>0&&y<=(x+r/2)||)
         try (PrintWriter pw = resp.getWriter();) {
             pw.println("Java lies...");
         }

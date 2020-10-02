@@ -23,11 +23,11 @@ public class ControllerServlet extends HttpServlet {
                 req.getRequestDispatcher("index.jsp").forward(req,resp);
             }
             catch(ServletException e){
-
+                try (PrintWriter pw = resp.getWriter();) {
+                    pw.println("Java never lies!");
+                }
             }
         }
-        try (PrintWriter pw = resp.getWriter();) {
-            pw.println("Java never lies!");
-        }
+
     }
 }
