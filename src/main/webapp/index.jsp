@@ -12,9 +12,6 @@
 <header>
     <br>
     Танковский К.О. и Мастюкина М. В. Лабораторная по веб-программированию №2 Вариант: 2639
-    <br>
-    Ссылка на гит-хаб:
-    <a href="#"> ссылка </a>
 </header>
 <table>
     <tr>
@@ -109,12 +106,12 @@
 
                 <text fill="white" x="160" y="10">Y</text>
 
-                <polygon fill="blue" fill-opacity="0.3" points="150,250 150,150 100,150" stroke="blue"></polygon>
+                <polygon fill="black" fill-opacity="0.3" points="150,100 150,150 100,150" stroke="black"></polygon>
 
-                <polygon fill="yellow" fill-opacity="0.3" points="150,150 250,150 250,250 150,250"
-                         stroke="yellow"></polygon>
-                <path d="M 250 150 A 100 100, 90, 0, 0, 150 50 L 150 150 Z" fill="green" fill-opacity="0.3"
-                      stroke="green"></path>
+                <polygon fill="black" fill-opacity="0.3" points="150,150 200,150 200,50 150,50"
+                         stroke="black"></polygon>
+                <path d="M 100 150 A 50 50, 90, 0, 0, 150 200 L 150 150 Z" fill="black" fill-opacity="0.3"
+                      stroke="black"></path>
 
             </svg>
         </td>
@@ -159,6 +156,8 @@
     Университет ИТМО, 2020
     <br>
     г. Санкт-Петербург
+    <br>
+   <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="github_PNG66.png" alt="github" width="100" height="100"></a>
 </footer>
 <script src="web/js/main.js"></script>
 </body>
