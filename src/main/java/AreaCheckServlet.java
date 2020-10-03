@@ -1,31 +1,73 @@
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Date;
 
 public class AreaCheckServlet extends HttpServlet {
-    int[] arrayY={-4,-3,-2,-1,0,1,2,3,4,5};
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    // thread-safe ?
+    private int[] arrayY = {-4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        long start = new Date().getTime();
         resp.setContentType("text/html");
-        double X=Double.parseDouble(req.getParameter("X"));
-        int Y=Integer.parseInt(req.getParameter("Y"));
-        double R=Double.parseDouble(req.getParameter("R"));
-        if (X>-5&&X<3&& Arrays.asList(arrayY).contains(Y)&&R>0&&R<6){
-            getServletContext().setAttribute("X",X);
-            getServletContext().setAttribute("Y",Y);
-            getServletContext().setAttribute("R",R);
-            getServletContext().setAttribute("Result",check(X,Y,R));
-            getServletContext().setAttribute("Current Time",new Date().getTime());
+        if (checkAcceptableValues(req)) {
+            double x = Double.parseDouble(req.getParameter("X"));
+            int y = Integer.parseInt(req.getParameter("Y"));
+            double r = Double.parseDouble(req.getParameter("R"));
+            String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
+            getServletContext().setAttribute("table", getTable(x, y, r, res, new Date().getTime() - start, new Date().getTime()));
         }
-        try (PrintWriter pw = resp.getWriter();) {
-            pw.println("Java lies...");
+        else {
+            //TODO add new Error handler servlet and delegate to him other work ?
         }
     }
-    public boolean check(double X,int Y,double R){
-        return (X>=0&&Y>=0&&X<=(R/2)&&Y<=R)||(X<=0&&Y<=X+R/2&&(X*X+Y*Y>=R*R/4));
+
+    //TODO
+    private String getTable(double x, int y, double r, String res, long script_time, long current_time) {
+        //add some class Table Row ?
+        return "";
+    }
+
+    private boolean checkODZ(double x, int y, double r) {
+        if (x >= 0 && y >= 0)
+            return checkFirstQ(x, y, r);
+        else if (x <= 0 && y <= 0)
+            return checkThirdQ(x, y, r);
+        else if (x >= 0 && y <= 0)
+            return checkFourthQ(x, y, r);
+        else
+            return checkSecondQ(x, y, r);
+    }
+
+    private boolean checkFirstQ(double x, int y, double r) {
+        return (x <= r / 2 && y <= r);
+    }
+
+    private boolean checkSecondQ(double x, int y, double r) {
+        return (x - y + r / 2 >= 0);
+    }
+
+    private boolean checkThirdQ(double x, int y, double r) {
+        return (x * x + y * y <= r * r / 4);
+    }
+
+    private boolean checkFourthQ(double x, int y, double r) {
+        return false;
+    }
+
+    private boolean checkAcceptableValues(HttpServletRequest req) {
+        try {
+            double x = Double.parseDouble(req.getParameter("X"));
+            int y = Integer.parseInt(req.getParameter("Y"));
+            double r = Double.parseDouble(req.getParameter("R"));
+            return (x > 5 && x < 3 && r > 0 && r < 6 && Arrays.asList(arrayY).contains(y)); // add regexp condition
+        } catch (NumberFormatException | NullPointerException e) {
+            //TODO some logic to add some info that sth went wrong with numbers to Error handler ?
+            return false;
+        } catch (Exception e) {
+            //TODO some info to Error Handler about exception
+            return false;
+        }
     }
 }

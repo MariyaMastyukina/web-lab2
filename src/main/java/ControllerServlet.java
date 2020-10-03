@@ -11,6 +11,7 @@ public class ControllerServlet extends HttpServlet {
         resp.setContentType("text/html");
         if (req.getMethod().equals("POST")) {
             try {
+                //do I need a thread-safe map here? probably yes
                 Map<String, String[]> parMap = req.getParameterMap();
                 if (parMap.containsKey("X") && parMap.containsKey("Y") && parMap.containsKey("R")) {
                     req.getRequestDispatcher("/areaCheck").forward(req, resp);
