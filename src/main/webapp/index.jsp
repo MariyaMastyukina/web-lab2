@@ -1,12 +1,14 @@
+<%@ page import="org.apache.log4j.Logger" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="web/style/main.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <title>First JSP</title>
+    <title>Lab 2</title>
 </head>
 <body>
 <header>
@@ -16,64 +18,62 @@
 <table>
     <tr>
         <td width="60%">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" class = "form" id = "form" >
                 <div>
-                    <p></p>
-                    <input type="text" value="" autocomplete="off" placeholder="Enter R value"
-                           class="text_input r_value"
-                           required>
+                    <p>X value</p>
+                    <input type="text" value="" autocomplete="off" placeholder="Enter X value"
+                           class="text_input x_value" name = "x_value" required>
+                    <br>
+                    <p>R value</p>
+                    <input type="text" value="" autocomplete="off" placeholder="Enter R coordinate"
+                           class="text_input r_value" name = "r_value" required>
                     <br>
                     <p>Y value</p>
-                    <input type="text" value="" autocomplete="off" placeholder="Enter Y coordinate"
-                           required>
-                    <br>
-                    <p>X value</p>
                     <table border="1">
                         <tr>
                             <td>
-                                <input type="radio"  checked="checked"
-                                       value="-4"> -4 </input>
+                                <input type="radio" checked="checked" name="y_value"
+                                       value="-5"> -5 </input>
                             </td>
                             <td>
-                                <input type="radio" value="-3"> -3 </input>
+                                <input type="radio" value="-4" name="y_value"> -4 </input>
                             </td>
                             <td>
-                                <input type="radio"  value="-2">-2</input>
-                            </td>
-                        </tr>
-                        <br>
-                        <tr>
-                            <td>
-                                <input type="radio" value="-1">-1</input>
-                            </td>
-                            <td>
-                                <input type="radio"  value="0">0</input>
-                            </td>
-                            <td>
-                                <input type="radio"  value="1">1</input>
+                                <input type="radio" value="-3" name="y_value">-3</input>
                             </td>
                         </tr>
                         <br>
                         <tr>
                             <td>
-                                <input type="radio"  value="2">2</input>
+                                <input type="radio" value="-2" name="y_value">-2</input>
                             </td>
                             <td>
-                                <input type="radio"  value="3">3</input>
+                                <input type="radio" value="-1" name="y_value">-1</input>
                             </td>
                             <td>
-                                <input type="radio"  value="4">4</input>
+                                <input type="radio" value="0" name="y_value">0</input>
+                            </td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td>
+                                <input type="radio" value="1" name="y_value">1</input>
+                            </td>
+                            <td>
+                                <input type="radio" value="2" name="y_value">2</input>
+                            </td>
+                            <td>
+                                <input type="radio" value="3" name="y_value">3</input>
                             </td>
                         </tr>
                     </table>
-                    <button type="submit" >Submit
-                    </button>
-                    <button type="button" >Reset</button>
+                    <button type="submit" id="submit_button">Submit</button>
+                    <button type="button" id="reset_button">Reset</button>
                 </div>
             </form>
         </td>
         <td align="center">
-            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg">
+            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" class="coordinate_axes">
                 <line stroke="white" x1="0" x2="300" y1="150" y2="150"></line>
                 <line stroke="white" x1="150" x2="150" y1="0" y2="300"></line>
                 <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
@@ -117,7 +117,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="2" id="result_table">
             <table width="70%">
                 <tbody>
                 <tr>
@@ -147,7 +147,7 @@
 </table>
 <div>
     <div>
-        <span>&times;</span>
+        <span class="error_window">&times;</span>
         <p>Вы ввели некорректные данные</p>
     </div>
 </div>
@@ -157,7 +157,8 @@
     <br>
     г. Санкт-Петербург
     <br>
-   <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="github_PNG66.png" alt="github" width="100" height="100"></a>
+    <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="github_PNG66.png" alt="github"
+                                                                               width="100" height="100"></a>
 </footer>
 <script src="web/js/main.js"></script>
 </body>

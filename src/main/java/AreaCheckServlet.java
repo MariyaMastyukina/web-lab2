@@ -1,3 +1,7 @@
+
+
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,6 +11,7 @@ import java.util.Date;
 public class AreaCheckServlet extends HttpServlet {
     // thread-safe ?
     private int[] arrayY = {-4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
+    private Logger log = Logger.getLogger(AreaCheckServlet.class);
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         long start = new Date().getTime();
@@ -15,10 +20,10 @@ public class AreaCheckServlet extends HttpServlet {
             double x = Double.parseDouble(req.getParameter("X"));
             int y = Integer.parseInt(req.getParameter("Y"));
             double r = Double.parseDouble(req.getParameter("R"));
+            log.info("Это информационное сообщение!");
             String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
             getServletContext().setAttribute("table", getTable(x, y, r, res, new Date().getTime() - start, new Date().getTime()));
-        }
-        else {
+        } else {
             //TODO add new Error handler servlet and delegate to him other work ?
         }
     }
@@ -61,7 +66,7 @@ public class AreaCheckServlet extends HttpServlet {
             double x = Double.parseDouble(req.getParameter("X"));
             int y = Integer.parseInt(req.getParameter("Y"));
             double r = Double.parseDouble(req.getParameter("R"));
-            return (x > 5 && x < 3 && r > 0 && r < 6 && Arrays.asList(arrayY).contains(y)); // add regexp condition
+            return (x < 5 && x > -3 && r > 2 && r < 5 && Arrays.asList(arrayY).contains(y)); // add regexp condition
         } catch (NumberFormatException | NullPointerException e) {
             //TODO some logic to add some info that sth went wrong with numbers to Error handler ?
             return false;
