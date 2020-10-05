@@ -1,6 +1,6 @@
 <%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="sun.rmi.runtime.Log" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -18,15 +18,15 @@
 <table>
     <tr>
         <td width="60%">
-            <form method="post" class = "form" id = "form" >
+            <form method="post" class="form" id="form">
                 <div>
                     <p>X value</p>
                     <input type="text" value="" autocomplete="off" placeholder="Enter X value"
-                           class="text_input x_value" name = "x_value" required>
+                           class="text_input x_value" name="x_value" required>
                     <br>
                     <p>R value</p>
                     <input type="text" value="" autocomplete="off" placeholder="Enter R coordinate"
-                           class="text_input r_value" name = "r_value" required>
+                           class="text_input r_value" name="r_value" required>
                     <br>
                     <p>Y value</p>
                     <table border="1">
@@ -157,7 +157,8 @@
     <br>
     г. Санкт-Петербург
     <br>
-    <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="github_PNG66.png" alt="github"
+    <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="web/resources/github_PNG66.png"
+                                                                               alt="github"
                                                                                width="100" height="100"></a>
 </footer>
 <script src="web/js/main.js"></script>

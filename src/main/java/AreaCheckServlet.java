@@ -1,37 +1,48 @@
-
-
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class AreaCheckServlet extends HttpServlet {
     // thread-safe ?
-    private int[] arrayY = {-4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
+    private List<Integer> arr = Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
     private Logger log = Logger.getLogger(AreaCheckServlet.class);
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        log.info("SESSION = " + session);
         long start = new Date().getTime();
         resp.setContentType("text/html");
-        if (checkAcceptableValues(req)) {
-            double x = Double.parseDouble(req.getParameter("X"));
-            int y = Integer.parseInt(req.getParameter("Y"));
-            double r = Double.parseDouble(req.getParameter("R"));
+        if (checkAcceptableValues(req, resp)) {
+            double x = Double.parseDouble(req.getParameter("x_value"));
+            int y = Integer.parseInt(req.getParameter("y_value"));
+            double r = Double.parseDouble(req.getParameter("r_value"));
             log.info("Это информационное сообщение!");
             String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
-            getServletContext().setAttribute("table", getTable(x, y, r, res, new Date().getTime() - start, new Date().getTime()));
+            session.getServletContext().setAttribute(session.getId(), getTable(x, y, r, res, new Date().getTime() - start, new Date().getTime(), session));
+            send(req, resp);
         } else {
+            log.info("ODZ ERROR");
             //TODO add new Error handler servlet and delegate to him other work ?
         }
     }
 
     //TODO
-    private String getTable(double x, int y, double r, String res, long script_time, long current_time) {
+    private List<String> getTable(double x, int y, double r, String res, long script_time, long current_time, HttpSession session) {
         //add some class Table Row ?
-        return "";
+        List<String> table = session.getServletContext().getAttribute(session.getId()) == null ? new ArrayList<String>() : (List<String>) session.getServletContext().getAttribute(session.getId());
+        table.add(getTableRow(x, y, r, res, script_time, current_time));
+        return table;
     }
 
     private boolean checkODZ(double x, int y, double r) {
@@ -61,18 +72,41 @@ public class AreaCheckServlet extends HttpServlet {
         return false;
     }
 
-    private boolean checkAcceptableValues(HttpServletRequest req) {
+    private boolean checkAcceptableValues(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            double x = Double.parseDouble(req.getParameter("X"));
-            int y = Integer.parseInt(req.getParameter("Y"));
-            double r = Double.parseDouble(req.getParameter("R"));
-            return (x < 5 && x > -3 && r > 2 && r < 5 && Arrays.asList(arrayY).contains(y)); // add regexp condition
+            double x = Double.parseDouble(req.getParameter("x_value"));
+            int y = Integer.parseInt(req.getParameter("y_value"));
+            double r = Double.parseDouble(req.getParameter("r_value"));
+            return (x < 5 && x > -3 && r > 2 && r < 5 && arr.contains(y)); // add regexp condition
         } catch (NumberFormatException | NullPointerException e) {
-            //TODO some logic to add some info that sth went wrong with numbers to Error handler ?
+            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), e.toString());
+            req.getSession().getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
             return false;
         } catch (Exception e) {
-            //TODO some info to Error Handler about exception
+            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), "It's bad");
+            req.getSession().getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
             return false;
         }
+
+    }
+
+    private String getTableRow(double x, int y, double r, String res, long script_time, long current_time) {
+        return "<tr>" +
+                "<td>" + x + "</td>" +
+                "<td>" + y + "</td>" +
+                "<td>" + r + "</td>" +
+                "<td>" + res + "</td>" +
+                "<td>" + script_time + "</td>" +
+                "<td>" + current_time + "</td>";
+    }
+
+    private void send(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        PrintWriter pw = resp.getWriter();
+        List<String> table = (List<String>) req.getSession().getServletContext().getAttribute(req.getSession().getId());
+        for (String table_row : table) {
+            pw.println(table_row);
+            log.info(table_row);
+        }
+        //req.getRequestDispatcher("some file").forward(req, resp);
     }
 }

@@ -12,7 +12,7 @@ public class ControllerServlet extends HttpServlet {
     private Logger log = Logger.getLogger(ControllerServlet.class);
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         if (req.getMethod().equals("POST")) {
             try {
@@ -22,14 +22,17 @@ public class ControllerServlet extends HttpServlet {
                     log.info(Arrays.toString(parMap.get("x_value")) + " " + Arrays.toString(parMap.get("y_value")) + " " + Arrays.toString(parMap.get("r_value")));
                     req.getRequestDispatcher("/areaCheck").forward(req, resp);
                 } else {
-                    log.info("error");
+                    log.info("Request didn't contains X and Y and R");
                     req.getRequestDispatcher("index.jsp").forward(req, resp);
                 }
-            } catch (NullPointerException | NumberFormatException e) {
-                //TODO
-            } catch (ServletException e) {
-                //TODO
+            } catch (NumberFormatException | NullPointerException | ServletException e) {
+                getServletContext().setAttribute("ErrorType", e.toString());
+                getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
+            } catch (Exception e) {
+                getServletContext().setAttribute("ErrorType", "It's bad");
+                getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
             }
+
         }
     }
 }
