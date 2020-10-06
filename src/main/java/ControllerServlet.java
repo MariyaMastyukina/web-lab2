@@ -35,4 +35,17 @@ public class ControllerServlet extends HttpServlet {
 
         }
     }
+
+    @Override
+    public void init() {
+        getServletContext().setAttribute("table_structure",
+                "<tr>\n" +
+                        "<th width=\"10%\">X</th>\n" +
+                        "<th width=\"10%\">Y</th>\n" +
+                        "<th width=\"10%\">R</th>\n" +
+                        "<th width=\"16.7%\">Current Time</th>\n" +
+                        "<th width=\"16.7%\">Execution Time</th>\n" +
+                        "<th width=\"16.7%\">Hit Result</th>\n" +
+                        "</tr>");
+    }
 }

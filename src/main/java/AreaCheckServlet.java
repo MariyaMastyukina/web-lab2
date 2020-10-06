@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class AreaCheckServlet extends HttpServlet {
@@ -21,7 +22,7 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         log.info("SESSION = " + session);
-        long start = new Date().getTime();
+        long start = System.nanoTime();
         resp.setContentType("text/html");
         if (checkAcceptableValues(req, resp)) {
             double x = Double.parseDouble(req.getParameter("x_value"));
@@ -29,7 +30,7 @@ public class AreaCheckServlet extends HttpServlet {
             double r = Double.parseDouble(req.getParameter("r_value"));
             log.info("Это информационное сообщение!");
             String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
-            session.getServletContext().setAttribute(session.getId(), getTable(x, y, r, res, new Date().getTime() - start, new Date().getTime(), session));
+            session.getServletContext().setAttribute(session.getId(), getTable(x, y, r, res, System.nanoTime() - start, new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()), session));
             send(req, resp);
         } else {
             log.info("ODZ ERROR");
@@ -38,7 +39,7 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     //TODO
-    private List<String> getTable(double x, int y, double r, String res, long script_time, long current_time, HttpSession session) {
+    private List<String> getTable(double x, int y, double r, String res, long script_time, String current_time, HttpSession session) {
         //add some class Table Row ?
         List<String> table = session.getServletContext().getAttribute(session.getId()) == null ? new ArrayList<String>() : (List<String>) session.getServletContext().getAttribute(session.getId());
         table.add(getTableRow(x, y, r, res, script_time, current_time));
@@ -90,23 +91,23 @@ public class AreaCheckServlet extends HttpServlet {
 
     }
 
-    private String getTableRow(double x, int y, double r, String res, long script_time, long current_time) {
+    private String getTableRow(double x, int y, double r, String res, long script_time, String current_time) {
         return "<tr>" +
                 "<td>" + x + "</td>" +
                 "<td>" + y + "</td>" +
                 "<td>" + r + "</td>" +
-                "<td>" + res + "</td>" +
+                "<td>" + current_time + "</td>" +
                 "<td>" + script_time + "</td>" +
-                "<td>" + current_time + "</td>";
+                "<td>" + res + "</td>";
     }
 
-    private void send(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void send(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter pw = resp.getWriter();
         List<String> table = (List<String>) req.getSession().getServletContext().getAttribute(req.getSession().getId());
+        pw.println(getServletContext().getAttribute("table_structure"));
         for (String table_row : table) {
             pw.println(table_row);
             log.info(table_row);
         }
-        //req.getRequestDispatcher("some file").forward(req, resp);
     }
 }
