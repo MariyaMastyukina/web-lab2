@@ -1,8 +1,5 @@
-<%@ page import="org.apache.log4j.Logger" %>
-<%@ page import="sun.rmi.runtime.Log" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -22,7 +19,7 @@
                 <div>
                     <p>X value</p>
                     <input type="text" value="" autocomplete="off" placeholder="Enter X value"
-                           class="text_input x_value" name="x_value" required>
+                           class="text_input x_value" name="x_value">
                     <br>
                     <p>R value</p>
                     <input type="text" value="" autocomplete="off" placeholder="Enter R coordinate"
@@ -118,29 +115,15 @@
     </tr>
     <tr>
         <td colspan="2" id="result_table">
-            <table width="70%">
-                <tbody>
+            <table width="70%" id="result">
                 <tr>
-                    <th width="10%">
-                        X
-                    </th>
-                    <th width="10%">
-                        Y
-                    </th>
-                    <th width="10%">
-                        R
-                    </th>
-                    <th width="16.7%">
-                        Current Time
-                    </th>
-                    <th width="16.7%">
-                        Execution Time
-                    </th>
-                    <th width="16.7%">
-                        Hit Result
-                    </th>
+                    <th width="10%">X</th>
+                    <th width="10%">Y</th>
+                    <th width="10%">R</th>
+                    <th width="16.7%">Current Time</th>
+                    <th width="16.7%">Execution Time</th>
+                    <th width="16.7%">Hit Result</th>
                 </tr>
-                </tbody>
             </table>
         </td>
     </tr>
