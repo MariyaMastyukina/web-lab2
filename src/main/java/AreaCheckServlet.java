@@ -1,4 +1,4 @@
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,24 +15,23 @@ import java.util.List;
 public class AreaCheckServlet extends HttpServlet {
     // thread-safe ?
     private List<Integer> arr = Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
-    private Logger log = Logger.getLogger(AreaCheckServlet.class);
-
+//    private Logger log = Logger.getLogger(AreaCheckServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        log.info("SESSION = " + session);
+//        log.info("SESSION = " + session);
         long start = new Date().getTime();
         resp.setContentType("text/html");
         if (checkAcceptableValues(req, resp)) {
             double x = Double.parseDouble(req.getParameter("x_value"));
             int y = Integer.parseInt(req.getParameter("y_value"));
             double r = Double.parseDouble(req.getParameter("r_value"));
-            log.info("Это информационное сообщение!");
+//            log.info("Это информационное сообщение!");
             String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
             session.getServletContext().setAttribute(session.getId(), getTable(x, y, r, res, new Date().getTime() - start, new Date().getTime(), session));
             send(req, resp);
         } else {
-            log.info("ODZ ERROR");
+//            log.info("ODZ ERROR");
             //TODO add new Error handler servlet and delegate to him other work ?
         }
     }
@@ -105,7 +104,7 @@ public class AreaCheckServlet extends HttpServlet {
         List<String> table = (List<String>) req.getSession().getServletContext().getAttribute(req.getSession().getId());
         for (String table_row : table) {
             pw.println(table_row);
-            log.info(table_row);
+//            log.info(table_row);
         }
         //req.getRequestDispatcher("some file").forward(req, resp);
     }
