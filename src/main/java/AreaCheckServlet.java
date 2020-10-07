@@ -8,12 +8,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class AreaCheckServlet extends HttpServlet {
-    private CopyOnWriteArrayList<Integer> arr = (CopyOnWriteArrayList<Integer>) Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
+    //private CopyOnWriteArrayList<Integer> arr = (CopyOnWriteArrayList<Integer>) Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
+    private List<Integer> arr = Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
     private Logger log = Logger.getLogger(AreaCheckServlet.class.getName());
 
     @Override

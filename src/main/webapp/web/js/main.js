@@ -43,7 +43,7 @@ submit_button.click((e) => {
                 //TODO error handler
             }
         }));
-    }
+    } // else { ??? }
 });
 
 function checkX() {
