@@ -14,26 +14,24 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        if (req.getMethod().equals("POST")) {
-            //do I need a thread-safe map here? probably yes;
-            Map<String, String[]> parMap = req.getParameterMap();
-            if (parMap.containsKey("x_value") && parMap.containsKey("y_value") && parMap.containsKey("r_value")) {
-                log.info(Arrays.toString(parMap.get("x_value")) + " " + Arrays.toString(parMap.get("y_value")) + " " + Arrays.toString(parMap.get("r_value")));
-                req.getRequestDispatcher("/areaCheck").forward(req, resp);
-            } else {
-                log.info("Request didn't contains X or Y or R");
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+        try {
+            resp.setContentType("text/html");
+            if (req.getMethod().equals("POST")) {
+                Map<String, String[]> parMap = req.getParameterMap();
+                if (parMap.containsKey("x_value") && parMap.containsKey("y_value") && parMap.containsKey("r_value")) {
+                    log.info(Arrays.toString(parMap.get("x_value")) + " " + Arrays.toString(parMap.get("y_value")) + " " + Arrays.toString(parMap.get("r_value")));
+                    req.getRequestDispatcher("/areaCheck").forward(req, resp);
+                } else {
+                    log.info("Request didn't contains X or Y or R");
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                }
             }
-//            catch (NumberFormatException | NullPointerException | ServletException e) {
-//                getServletContext().setAttribute("ErrorType", e.toString());
-//                getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
-//            }
-//            catch (Exception e) {
-//                getServletContext().setAttribute("ErrorType", "It's bad");
-//                getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
-//            }
-
+        } catch (NumberFormatException | NullPointerException e) {
+            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), e.toString());
+            req.getSession().getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
+        } catch (Exception e) {
+            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), "It's bad");
+            req.getSession().getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
         }
     }
 
