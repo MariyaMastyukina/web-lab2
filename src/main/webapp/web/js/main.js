@@ -1,5 +1,6 @@
 let x_value = $(".x_value");
 let r_value = $(".r_value");
+let y_value=0;
 let submit_button = $("#submit_button");
 let y_group = $('input[name = y_value]');
 let reset_button = $("#reset_button");
@@ -13,6 +14,7 @@ submit_button.click((e) => {
         for (let i = 0; i < y_group.length; i++) {
             if (y_group[i].checked) {
                 form_data = "y_value=" + encodeURIComponent(y_group[i].value);
+                y_value=y_group[i].value;
             }
         }
         if (x_value.val() !== "") {
@@ -21,6 +23,12 @@ submit_button.click((e) => {
         if (r_value.val() !== "") {
             form_data += "&r_value=" + encodeURIComponent(r_value.val());
         }
+        var cx=x_value.val()/r_value.val()*100+150;
+        var cy=150-y_value/r_value.val()*100;
+        alert(cx+" "+cy);
+        document.getElementById("point").setAttribute("cx",String(cx));
+        document.getElementById("point").setAttribute("cy",String(cy));
+        document.getElementById("point").setAttribute("r","3");
         console.log(form_data);
         $.ajax(({
             type: 'POST',
@@ -40,6 +48,7 @@ submit_button.click((e) => {
             },
             error: function (e) {
                 console.log("error");
+                alert("error");
                 //TODO error handler
             }
         }));
@@ -67,6 +76,7 @@ function saveUpdateTable(table) {
 
 reset_button.click(e => {
     e.preventDefault();
+    document.getElementById("point").setAttribute("r","0");
     document.getElementById("result").innerHTML = default_table;
     localStorage.setItem("current_table", default_table);
     localStorage.setItem("reset_flag", "true");

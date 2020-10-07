@@ -18,11 +18,11 @@
             <form method="post" class="form" id="form">
                 <div>
                     <p>X value</p>
-                    <input type="text" value="" autocomplete="off" placeholder="Enter X value"
+                    <input type="text" value="" autocomplete="off" placeholder="Enter X value (-3..5)"
                            class="text_input x_value" name="x_value">
                     <br>
                     <p>R value</p>
-                    <input type="text" value="" autocomplete="off" placeholder="Enter R coordinate"
+                    <input type="text" value="" autocomplete="off" placeholder="Enter R coordinate (2..5)"
                            class="text_input r_value" name="r_value" required>
                     <br>
                     <p>Y value</p>
@@ -70,7 +70,7 @@
             </form>
         </td>
         <td align="center">
-            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" class="coordinate_axes">
+            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" class="coordinate_axes" id="svg">
                 <line stroke="white" x1="0" x2="300" y1="150" y2="150"></line>
                 <line stroke="white" x1="150" x2="150" y1="0" y2="300"></line>
                 <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
@@ -109,7 +109,7 @@
                          stroke="black"></polygon>
                 <path d="M 100 150 A 50 50, 90, 0, 0, 150 200 L 150 150 Z" fill="black" fill-opacity="0.3"
                       stroke="black"></path>
-
+                <circle fill="green" fill-opacity="0.3" stroke="green" cx="150" cy="150" r="0" id="point"></circle>
             </svg>
         </td>
     </tr>
@@ -145,5 +145,6 @@
                                                                                width="100" height="100"></a>
 </footer>
 <script src="web/js/main.js"></script>
+<script src="web/js/SVGclick.js"></script>
 </body>
 </html>
