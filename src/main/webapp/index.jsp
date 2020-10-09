@@ -8,25 +8,30 @@
     <title>Lab 2</title>
 </head>
 <body>
-<header>
-    <br>
-    Танковский К.О. и Мастюкина М.В. Лабораторная по веб-программированию №2 Вариант: 2639
-</header>
-<table>
+<table id="main_table" width="100%" height="100%">
+    <tr class="header" width="100%">
+        <td colspan="2">
+            <pre>
+                Танковский К.О. и Мастюкина М.В.
+                Лабораторная по веб-программированию №2
+                Вариант: 2639
+            </pre>
+        </td>
+    </tr>
     <tr>
-        <td width="60%">
+        <td width="60%" id="text_block">
             <form method="post" class="form" id="form">
                 <div>
-                    <p>X value</p>
+                    <p class="values">X value</p>
                     <input type="text" value="" autocomplete="off" placeholder="Enter X value (-3..5)"
                            class="text_input x_value" name="x_value">
                     <br>
-                    <p>R value</p>
+                    <p class="values">R value</p>
                     <input type="text" value="" autocomplete="off" placeholder="Enter R coordinate (2..5)"
                            class="text_input r_value" name="r_value" required>
                     <br>
-                    <p>Y value</p>
-                    <table border="1">
+                    <pre class="values">Y value</pre>
+                    <table border="1" id="radio">
                         <tr>
                             <td>
                                 <input type="radio" checked="checked" name="y_value"
@@ -70,7 +75,8 @@
             </form>
         </td>
         <td align="center">
-            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" class="coordinate_axes" id="svg">
+            <svg height="300" width="300" xmlns="http://www.w3.org/2000/svg" class="coordinate_axes" id="svg"
+                 style="background-color: blue">
                 <line stroke="white" x1="0" x2="300" y1="150" y2="150"></line>
                 <line stroke="white" x1="150" x2="150" y1="0" y2="300"></line>
                 <polygon fill="white" points="150,0 144,15 156,15" stroke="white"></polygon>
@@ -127,6 +133,18 @@
             </table>
         </td>
     </tr>
+    <tr class="footer" width="100%">
+        <td colspan="2">
+                <br>
+                Университет ИТМО, 2020
+                <br>
+                г. Санкт-Петербург
+                <br>
+                <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="web/resources/github_PNG66.png"
+                                                                                           alt="github"
+                                                                                           width="100" height="100"></a>
+        </td>
+    </tr>
 </table>
 <div>
     <div>
@@ -134,16 +152,7 @@
         <p>Вы ввели некорректные данные</p>
     </div>
 </div>
-<footer>
-    <br>
-    Университет ИТМО, 2020
-    <br>
-    г. Санкт-Петербург
-    <br>
-    <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="web/resources/github_PNG66.png"
-                                                                               alt="github"
-                                                                               width="100" height="100"></a>
-</footer>
+
 <script src="web/js/main.js"></script>
 <script src="web/js/SVGclick.js"></script>
 </body>
