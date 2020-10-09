@@ -1,76 +1,78 @@
 @charset "UTF-8";
 /* some scss styles */
 body {
-  background-color: #8FBC8F;
+    background-color: #8FBC8F;
 }
 
 .footer, .header {
-  background-color: #556B2F;
-  font-family: serif;
-  text-align: center;
+    background-color: #556B2F;
+    font-family: serif;
+    text-align: center;
 }
 
 #main_table {
-  text-align: center;
+    text-align: center;
 }
 
 .values {
-  color: aliceblue;
-  font-family: monospace;
-  font-size: 15px;
+    color: aliceblue;
+    font-family: monospace;
+    font-size: 15px;
 }
 
 #svg {
-  margin: auto;
+    margin: auto;
 }
 
 #text_block {
-  padding: 10px;
+    padding: 10px;
 }
 
 #result_table {
-  background-color: #808000;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  border-radius: 5px;
-  margin: auto;
-  padding: 10px;
-  text-align: center;
+    background-color: #808000;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    border-radius: 5px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
 }
 
 #radio {
-  border: 2px solid #2E8B57;
-  margin: auto;
+    border: 2px solid #2E8B57;
+    margin: auto;
 }
 
 .modal {
-  display: none;
-  position: absolute;
-  left: 45%;
-  top: 40%;
-  height: 50%;
-  width: 45%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    position: absolute;
+    left: 45%;
+    top: 40%;
+    height: 50%;
+    width: 45%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
 }
+
 .modal-content {
-  text-align: center;
-  color: white;
-  margin-top: 5%;
-  margin-left: 12%;
-  width: 75%;
-  height: 75%;
-  font-family: ‘Raleway’, sans-serif;
-  font-size: 30px;
-  font-weight: 400;
-  background-image: url("../resources/error_pick.jpg");
-  background-size: cover;
+    text-align: center;
+    color: white;
+    margin-top: 5%;
+    margin-left: 12%;
+    width: 75%;
+    height: 75%;
+    font-family: ‘Raleway’, sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    background-image: url("../resources/error_pick.jpg");
+    background-size: cover;
 }
+
 .modal-content .close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /*# sourceMappingURL=main.css.map */

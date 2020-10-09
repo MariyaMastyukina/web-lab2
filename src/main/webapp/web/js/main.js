@@ -90,6 +90,7 @@ function send(form_data) {
             } else {
                 document.querySelector("#result").innerHTML = e.toString();
                 saveUpdateTable(e.toString());
+                location.href = "http://localhost:8080/web2-1.0/result.jsp";
             }
 
         },

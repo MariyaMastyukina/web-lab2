@@ -37,14 +37,11 @@ public class AreaCheckServlet extends HttpServlet {
             String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
             long script_time = System.nanoTime() - start;
             String current_time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
-
             session.getServletContext().setAttribute(session.getId(), getTable(x, y, r, res, System.nanoTime() - start, new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()), session));
-//            session.setAttribute("table", getTable(x, y, r, res, script_time,current_time, session));
-            getServletContext().setAttribute("DL", getDataList(x, y, r, res, script_time, current_time));
+            //session.setAttribute("table", getTable(x, y, r, res, script_time, current_time, session));
             send(req, resp);
-//            req.getRequestDispatcher("/result.jsp").forward(req,resp);
+            //req.getRequestDispatcher("/result.jsp").forward(req,resp);
         } else {
-            resp.setCharacterEncoding("UTF-8");
             getServletContext().setAttribute("ErrorType:" + session.getId(), "ErrorType: ODZ Error.");
             req.getRequestDispatcher("/errorHandler").forward(req, resp);
         }
@@ -52,7 +49,7 @@ public class AreaCheckServlet extends HttpServlet {
 
     private List<String> getTable(double x, int y, double r, String res, long script_time, String current_time, HttpSession session) {
         List<String> table = session.getServletContext().getAttribute(session.getId()) == null ? new ArrayList<String>() : (List<String>) session.getServletContext().getAttribute(session.getId());
-//        List<String> table = session.getAttribute("table") == null ? new ArrayList<String>() : (List<String>) session.getAttribute("table");
+        //List<String> table = session.getAttribute("table") == null ? new ArrayList<String>() : (List<String>) session.getAttribute("table");
         table.add(getTableRow(x, y, r, res, script_time, current_time));
         return table;
     }
@@ -123,7 +120,6 @@ public class AreaCheckServlet extends HttpServlet {
     private void send(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter pw = resp.getWriter();
         List<String> table = (List<String>) req.getSession().getServletContext().getAttribute(req.getSession().getId());
-//        List<String> table = (List<String>) req.getSession().getAttribute("table");
         pw.println(getServletContext().getAttribute("table_structure"));
         for (String table_row : table) {
             pw.println(table_row);

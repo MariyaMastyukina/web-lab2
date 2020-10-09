@@ -1,5 +1,4 @@
 document.getElementById("svg").addEventListener('click', function (e) {
-    console.log("click");
     let svg = document.getElementById("svg");
     let HTMLPoint = svg.createSVGPoint();
     HTMLPoint.x = e.clientX;
