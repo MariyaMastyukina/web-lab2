@@ -27,10 +27,10 @@ public class ControllerServlet extends HttpServlet {
                 }
             }
         } catch (NumberFormatException | NullPointerException e) {
-            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), e.toString());
+            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(),"ErrorType:" +  e.toString());
             req.getSession().getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
         } catch (Exception e) {
-            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), "It's bad");
+            req.getSession().getServletContext().setAttribute("ErrorType:" + req.getSession().getId(), "ErrorType:" + "It's bad");
             req.getSession().getServletContext().getRequestDispatcher("/ErrorHandlerServlet").forward(req, resp);
         }
     }

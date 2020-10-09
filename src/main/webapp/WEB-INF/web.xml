@@ -27,4 +27,12 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ErrorHandlerServlet</servlet-name>
+        <servlet-class>ErrorHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ErrorHandlerServlet</servlet-name>
+        <url-pattern>/errorHandler</url-pattern>
+    </servlet-mapping>
 </web-app>

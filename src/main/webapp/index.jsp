@@ -135,21 +135,22 @@
     </tr>
     <tr class="footer" width="100%">
         <td colspan="2">
-                <br>
-                Университет ИТМО, 2020
-                <br>
-                г. Санкт-Петербург
-                <br>
-                <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img src="web/resources/github_PNG66.png"
-                                                                                           alt="github"
-                                                                                           width="100" height="100"></a>
+            <br>
+            Университет ИТМО, 2020
+            <br>
+            г. Санкт-Петербург
+            <br>
+            <a href="https://github.com/lastnightinparis/web_2/tree/Kir/src/main"><img
+                    src="web/resources/github_PNG66.png"
+                    alt="github"
+                    width="100" height="100"></a>
         </td>
     </tr>
 </table>
-<div>
-    <div>
-        <span class="error_window">&times;</span>
-        <p>Вы ввели некорректные данные</p>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="span_text">Вы ввели некорректные данные</p>
     </div>
 </div>
 

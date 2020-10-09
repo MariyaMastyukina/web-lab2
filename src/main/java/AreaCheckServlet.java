@@ -18,6 +18,7 @@ public class AreaCheckServlet extends HttpServlet {
     //private CopyOnWriteArrayList<Integer> arr = (CopyOnWriteArrayList<Integer>) Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
     private List<Integer> arr = Arrays.asList(-5, -4, -3, -2, -1, 0, 1, 2, 3);
     private Logger log = Logger.getLogger(AreaCheckServlet.class.getName());
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -34,17 +35,18 @@ public class AreaCheckServlet extends HttpServlet {
             double r = Double.parseDouble(req.getParameter("r_value"));
             log.info("Это информационное сообщение!");
             String res = checkODZ(x, y, r) ? "TRUE" : "FALSE";
-            long script_time=System.nanoTime() - start;
-            String current_time= new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
+            long script_time = System.nanoTime() - start;
+            String current_time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 
             session.getServletContext().setAttribute(session.getId(), getTable(x, y, r, res, System.nanoTime() - start, new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()), session));
 //            session.setAttribute("table", getTable(x, y, r, res, script_time,current_time, session));
-            getServletContext().setAttribute("DL",getDataList(x,y,r,res,script_time,current_time));
+            getServletContext().setAttribute("DL", getDataList(x, y, r, res, script_time, current_time));
             send(req, resp);
 //            req.getRequestDispatcher("/result.jsp").forward(req,resp);
         } else {
-            log.info("ODZ ERROR");
-            //TODO add new Error handler servlet and delegate to him other work ?
+            resp.setCharacterEncoding("UTF-8");
+            getServletContext().setAttribute("ErrorType:" + session.getId(), "ErrorType: ODZ Error.");
+            req.getRequestDispatcher("/errorHandler").forward(req, resp);
         }
     }
 
@@ -54,12 +56,14 @@ public class AreaCheckServlet extends HttpServlet {
         table.add(getTableRow(x, y, r, res, script_time, current_time));
         return table;
     }
-    private List<RowData> getDataList(double x, int y, double r, String res, long script_time, String current_time){
-        RowData new_data=new RowData(x,y,r,res,script_time,current_time);
-        List<RowData> data_list=getServletContext().getAttribute("DL")==null ? new ArrayList<RowData>() : (List<RowData>)getServletContext().getAttribute("DL");
+
+    private List<RowData> getDataList(double x, int y, double r, String res, long script_time, String current_time) {
+        RowData new_data = new RowData(x, y, r, res, script_time, current_time);
+        List<RowData> data_list = getServletContext().getAttribute("DL") == null ? new ArrayList<RowData>() : (List<RowData>) getServletContext().getAttribute("DL");
         data_list.add(new_data);
         return data_list;
     }
+
     private boolean checkODZ(double x, int y, double r) {
         if (x >= 0 && y >= 0)
             return checkFirstQ(x, y, r);

@@ -2,10 +2,17 @@ let x_value = $(".x_value");
 let r_value = $(".r_value");
 let y_value = 0;
 let submit_button = $("#submit_button");
+let modal = document.getElementById("myModal");
+let span_text = document.getElementById("span_text");
 let y_group = $('input[name = y_value]');
 let reset_button = $("#reset_button");
 let regExp = new RegExp("^(-?(?:(?:\\d+|\\d*\\.\\d+)(?:[e][+|-]?\\d+)?))+");
 let default_table = document.querySelector("#result").innerHTML;
+$(document).ready(function () {
+    $(".modal .modal-content .close").click(function () {
+        $(this).parents(".modal-content").parents(".modal").animate({opacity: 'hide'}, "slow");
+    })
+});
 submit_button.click((e) => {
     e.preventDefault();
     if (checkODZ(x_value.val(), r_value.val())) {
@@ -22,16 +29,17 @@ submit_button.click((e) => {
         if (r_value.val() !== "") {
             form_data += "&r_value=" + encodeURIComponent(r_value.val());
         }
-        var cx = x_value.val() / r_value.val() * 100 + 150;
-        var cy = 150 - y_value / r_value.val() * 100;
+        let cx = x_value.val() / r_value.val() * 100 + 150;
+        let cy = 150 - y_value / r_value.val() * 100;
         send(form_data);
-        alert(cx + " " + cy);
         document.getElementById("point").setAttribute("cx", String(cx));
         document.getElementById("point").setAttribute("cy", String(cy));
         document.getElementById("point").setAttribute("r", "3");
         console.log(form_data);
 
-    } // else { ??? }
+    } else {
+        showModalWindow(span_text.innerText);
+    }
 });
 
 function checkX(x_value) {
@@ -42,14 +50,14 @@ function checkX(x_value) {
 function checkR(r_value) {
     return regExp.test(r_value) && r_value > 2 && r_value < 5;
 }
+
 function checkY(y_value) {
     return regExp.test(y_value) && y_value >= -5 && y_value <= 3;
 }
 
 function checkODZ(x_value, r_value) {
-    //the alert needs to be changed to something
-    if (!checkX(x_value)) alert("Введены некорректные значения для параметра Х");
-    if (!checkR(r_value)) alert("Введены некорректные значения для параметра R");
+    if (!checkX(x_value)) span_text.innerText = "Введены некорректные значения для параметра Х";//alert("Введены некорректные значения для параметра Х");
+    if (!checkR(r_value)) span_text.innerText = "Введены некорректные значения для параметра R";//alert("Введены некорректные значения для параметра R");
     return checkR(r_value) && checkX(x_value);
 }
 
@@ -77,8 +85,8 @@ function send(form_data) {
             console.log("success");
             console.log(e.toString());
             localStorage.setItem("reset_flag", "false");
-            if (e.toString().includes("<html>") || e.toString().includes("error")) {
-                // say to user that he didnt choose x or r
+            if (e.toString().includes("<html>") || e.toString().includes("ErrorType:")) {
+                showModalWindow("Произошла ошибка на стороне сервера. " + e.toString());
             } else {
                 document.querySelector("#result").innerHTML = e.toString();
                 saveUpdateTable(e.toString());
@@ -87,8 +95,12 @@ function send(form_data) {
         },
         error: function (e) {
             console.log("error");
-            alert("error");
-            //TODO error handler
+            showModalWindow("Произошла ошибка при обработке запроса. Повторите позднее.");
         }
     }));
+}
+
+function showModalWindow(text) {
+    modal.style.display = "block";
+    span_text.innerText = text;
 }

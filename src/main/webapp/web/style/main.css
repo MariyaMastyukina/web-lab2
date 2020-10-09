@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* some scss styles */
 body {
   background-color: #8FBC8F;
@@ -39,6 +40,37 @@ body {
 #radio {
   border: 2px solid #2E8B57;
   margin: auto;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  left: 45%;
+  top: 40%;
+  height: 50%;
+  width: 45%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content {
+  text-align: center;
+  color: white;
+  margin-top: 5%;
+  margin-left: 12%;
+  width: 75%;
+  height: 75%;
+  font-family: ‘Raleway’, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  background-image: url("../resources/error_pick.jpg");
+  background-size: cover;
+}
+.modal-content .close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=main.css.map */

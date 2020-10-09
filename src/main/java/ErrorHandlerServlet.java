@@ -9,6 +9,8 @@ public class ErrorHandlerServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter pw = resp.getWriter();
-        // pw should write about mistakes
+        System.out.println("error handler start working");
+        System.out.println(req.getSession().getServletContext().getAttribute("ErrorType:" + req.getSession().getId()));
+        pw.println(req.getSession().getServletContext().getAttribute("ErrorType:" + req.getSession().getId()));
     }
 }
