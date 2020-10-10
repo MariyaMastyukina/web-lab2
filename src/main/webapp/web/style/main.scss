@@ -5,8 +5,10 @@ body {
 
 .footer, .header {
   background-color: #556B2F;
-  font-family: serif;
+  font-family: monospace;
+  font-size: 15px;
   text-align: center;
+  color: aliceblue;
 }
 
 #main_table {
@@ -18,7 +20,68 @@ body {
   font-family: monospace;
   font-size: 15px;
 }
+.radio{
+  position: relative;
+  margin-bottom: 0;
+  border: none;
+  height: 20px;
+  width: 60px;
+  padding-bottom: 5px;
+}
 
+.radio_input {
+  appearance: none;
+  position: relative;
+}
+.radio_label {
+  padding-left: 25px;
+  font-size: 1rem;
+  color: aliceblue;
+  text-align: right;
+  font-family: monospace;
+  cursor: pointer; /* курсор рука */
+}
+#R,#X{
+  background-color: #8FBC8F;
+  border: 2px solid #556B2F;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.radio_label:before {
+  content: "";
+  display: block; /* не в строку */
+  width: 16px; /* ширина блока */
+  height: 16px;/* высота блока */
+  border: 2px solid #556B2F;/* рамка */
+  background-color: #8FBC8F; /* цвет фона */
+  border-radius: 50%;/* получаем круг */
+  position: absolute;/* расположен точно в родителе */
+  top: 0; /* расстояние от верха родителя */
+  left: 0;/* расстояние слева от родителя */
+  z-index: 1; /* на нижнем слое */
+  transition: border .1s linear;/* плавный переход для border */
+}
+.radio_label:after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  background-color: #556B2F;
+  border-radius: 50%;
+  opacity: 0; /* полностью прозрачный */
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 2;/* на верхнем слое */
+  transition: opacity .1s linear; /* плавный переход для opacity */
+}
+.radio_input:checked + .radio_label:before {
+  border-color: #556B2F;
+}
+.radio_input:checked + .radio_label:after {
+  opacity: 1;
+}
 #svg {
   margin: auto;
 }
@@ -27,20 +90,33 @@ body {
   padding: 10px;
 }
 
-#result_table {
+#result{
   background-color: #808000;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   border-radius: 5px;
+  border: none;
   margin: auto;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
+  color: aliceblue;
+  font-family: monospace;
+  font-size: 15px;
 }
 
-#radio {
-  border: 2px solid #2E8B57;
+#radio_buttons {
   margin: auto;
+  border: 0px solid #8FBC8F;
 }
-
+#submit_button, #reset_button,#back_button{
+  background-color: #808080;
+  border-radius: 5px;
+  border: 3px solid #696969;
+  font-family: monospace;
+  color: aliceblue;
+  height: 30px;
+  width: 100px;
+  margin: 15px;
+}
 .modal {
   display: none;
   position: absolute;
@@ -50,6 +126,7 @@ body {
   width: 45%;
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.8);
+  z-index: 3;
 
   &-content {
     text-align: center;

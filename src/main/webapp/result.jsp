@@ -9,21 +9,28 @@
     <title>Lab 2</title>
 </head>
 <body>
-<header>
-    <br>
-    Танковский К.О. и Мастюкина М. В. Лабораторная по веб-программированию №2 Вариант: 2639
-</header>
 <table>
+    <tr class="header" width="100%">
+        <td>
+            <p>
+                Танковский К.О. и Мастюкина М.В.
+                <br>
+                Лабораторная по веб-программированию №2
+                <br>
+                Вариант: 2639
+            </p>
+        </td>
+    </tr>
     <tr>
         <td>
-            <table width="70%" id="result">
+            <table width="100%" id="result">
                 <tr>
-                    <th width="10%">X</th>
-                    <th width="10%">Y</th>
-                    <th width="10%">R</th>
-                    <th width="16.7%">Current Time</th>
-                    <th width="16.7%">Execution Time</th>
-                    <th width="16.7%">Hit Result</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Current Time</th>
+                    <th>Execution Time</th>
+                    <th>Hit Result</th>
                 </tr>
                 <c:forEach var="table_row" items="${applicationScope.get(pageContext.session.id)}">
                     ${table_row}
@@ -35,7 +42,7 @@
     <tr>
         <td>
             <form>
-                <button type="button" id="back_button" onclick="window.location.href='index.jsp'">На главную страницу
+                <button type="button" id="back_button" onclick="window.location.href='index.jsp'">Back
                 </button>
             </form>
         </td>
