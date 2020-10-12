@@ -15,6 +15,14 @@ $(document).ready(function () {
 });
 submit_button.click((e) => {
     e.preventDefault();
+    console.log(x_value.val());
+    if (r_value.val().length >= 14) {
+        r_value.val(r_value.val().substring(0, 12));
+    }
+    if (x_value.val().length >= 14) {
+        x_value.val(x_value.val().substring(0, 12));
+    }
+    console.log(x_value.val());
     if (checkODZ(x_value.val(), r_value.val())) {
         let form_data;
         for (let i = 0; i < y_group.length; i++) {
@@ -23,6 +31,7 @@ submit_button.click((e) => {
                 y_value = y_group[i].value;
             }
         }
+
         if (x_value.val() !== "") {
             form_data += "&x_value=" + encodeURIComponent(x_value.val());
         }
@@ -43,7 +52,7 @@ submit_button.click((e) => {
 });
 
 function checkX(x_value) {
-    console.log(x_value + " x_value");
+    //console.log(x_value + " x_value");
     return regExp.test(x_value) && x_value > -3 && x_value < 5;
 }
 
@@ -90,7 +99,7 @@ function send(form_data) {
             } else {
                 document.querySelector("#result").innerHTML = e.toString();
                 saveUpdateTable(e.toString());
-                location.href = "http://localhost:8080/web2-1.0/result.jsp";
+                location.href = "http://localhost:3800/web2_war/result.jsp";
             }
 
         },
